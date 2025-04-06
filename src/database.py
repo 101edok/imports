@@ -27,12 +27,13 @@ engine = create_engine(f"mysql://recepter:{MYSQL_PASSWORD}@recepter.mysql.gistre
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
-def add_video(resource_id: int, video_data: str):
+def add_video(import_id: int, resource_id: int, video_data: str):
     """
     Добавляет запись о видео в базу данных.
     """
     with SessionLocal() as session:
         video = VideoData(
+            import_id=import_id,
             resource_id=resource_id,
             video_data=video_data,
         )
@@ -46,3 +47,21 @@ def is_video_exists(resource_id: str) -> bool:
     """
     with SessionLocal() as session:
         return session.query(exists().where(VideoData.resource_id == resource_id)).scalar()
+
+
+def get_videos(import_id: int):
+    """
+    Возвращает все записи из таблицы video_data.
+    """
+    with SessionLocal() as session:
+        return session.query(VideoData).filter(VideoData.import_id == import_id).all()
+
+
+def set_llava_data(resource_id, llava_data):
+    """
+    Обновляет для видео с resource_id поле llava_data.
+    """
+    with SessionLocal() as session:
+        video = session.query(VideoData).filter(VideoData.resource_id == resource_id).one()
+        video.llava_data = llava_data
+        session.commit()

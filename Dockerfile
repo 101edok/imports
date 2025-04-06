@@ -8,12 +8,20 @@ COPY requirements.txt ./
 
 # Устанавливаем системные зависимости
 RUN apt-get update
-RUN apt-get install -y libmysqlclient-dev pkg-config gcc libgl1-mesa-glx
+RUN apt-get install -y libmysqlclient-dev pkg-config gcc libgl1-mesa-glx git
 
 
 # Обновляем pip и устанавливаем зависимости
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
+
+
+# Устанавливаем Video-LLaVA
+RUN git clone https://github.com/PKU-YuanGroup/Video-LLaVA
+RUN pip install -e ./Video-LLaVA
+RUN pip install -e "./Video-LLaVA[train]"
+RUN pip install git+https://github.com/facebookresearch/pytorchvideo.git@28fe037d212663c6a24f373b94cc5d478c8c1a1d
+
 
 # Копируем все файлы из текущей директории в контейнер
 COPY src/. .

@@ -1,10 +1,12 @@
 import os
 import boto3
+import logging
 
 from botocore.client import Config
 
 
 S3_SECRET_KEY = os.getenv("S3_SECRET_KEY")
+
 
 s3 = boto3.client('s3',
     endpoint_url='https://storage.yandexcloud.net',
@@ -21,4 +23,13 @@ def upload_file(file_name, bucket, object_name):
     except Exception as e:
         print(f"Failed to upload {file_name} to s3")
         print(e)
+        return False
+
+
+def download_s3_file(s3_key, file_path):
+    try:
+        s3.download_file(bucket_name, s3_key, file_path)
+        return True
+    except Exception as e:
+        logging.error(f"Failed to download {s3_key} from S3: {e}")
         return False
