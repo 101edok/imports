@@ -7,3 +7,8 @@
 * MYSQL_PASSWORD
 
 ## Параметры контейнера
+
+* (required) IMPORT_ID
+* (required) YOUTUBE_CHANNEL_URL
+* (optional) MAX_VIDEO_DURATION_SEC (default 180)
+* (optional) MAX_VIDEO_SIZE_MB (default 20)

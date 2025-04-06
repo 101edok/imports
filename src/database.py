@@ -27,7 +27,10 @@ engine = create_engine(f"mysql://recepter:{MYSQL_PASSWORD}@recepter.mysql.gistre
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
-def add_video(resource_id, video_data):
+def add_video(resource_id: int, video_data: str):
+    """
+    Добавляет запись о видео в базу данных.
+    """
     with SessionLocal() as session:
         video = VideoData(
             resource_id=resource_id,
@@ -37,6 +40,9 @@ def add_video(resource_id, video_data):
         session.commit()
 
 
-def is_video_exits(resource_id: str) -> bool:
+def is_video_exists(resource_id: str) -> bool:
+    """
+    Проверяет, существует ли видео с заданным resource_id.
+    """
     with SessionLocal() as session:
         return session.query(exists().where(VideoData.resource_id == resource_id)).scalar()

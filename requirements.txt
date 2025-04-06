@@ -7,3 +7,7 @@ mysqlclient
 
 pytube
 pytubefix
+
+av
+transformers
+decord

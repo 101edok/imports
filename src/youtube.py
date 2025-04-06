@@ -19,8 +19,7 @@ def get_channel_id(channel_username: str) -> str:
 
     # Extract the channel ID
     if response['items']:
-        channel_id = response['items'][0]['snippet']['channelId']
-        return channel_id
+        return response['items'][0]['snippet']['channelId']
 
     return None
 
