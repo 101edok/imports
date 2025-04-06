@@ -1,0 +1,9 @@
+google-api-python-client
+youtube_transcript_api
+opencv-python
+boto3
+sqlalchemy
+mysqlclient
+
+pytube
+pytubefix
