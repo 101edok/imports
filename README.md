@@ -2,9 +2,9 @@
 
 ## Переменные окружения
 
-* S3_SECRET_KEY
-* GOOGLE_API_KEY
-* MYSQL_PASSWORD
+* (required) S3_SECRET_KEY
+* (required) GOOGLE_API_KEY
+* (required) MYSQL_PASSWORD
 
 ## Параметры контейнера
 

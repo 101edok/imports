@@ -14,8 +14,6 @@ from database import get_videos, set_llava_data
 
 # Папка для временного сохранения видео
 VIDEO_FOLDER = "./videos"
-os.makedirs(VIDEO_FOLDER, exist_ok=True)
-
 
 
 # Определяем промпты для анализа
