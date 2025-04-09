@@ -38,6 +38,7 @@ def get_videos(channel_id: str, limit: int = 100) -> list:
     next_page_token = None
 
     while True:
+        # 50 - лимит на количество видео в одном запросе
         maxResults = min(limit, 50 - len(videos))
 
         response = youtube.playlistItems().list(

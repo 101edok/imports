@@ -57,11 +57,21 @@ def get_videos(import_id: int):
         return session.query(VideoData).filter(VideoData.import_id == import_id).all()
 
 
-def set_llava_data(resource_id, llava_data):
+def set_llava_data(resource_id: int, llava_data: str):
     """
     Обновляет для видео с resource_id поле llava_data.
     """
     with SessionLocal() as session:
         video = session.query(VideoData).filter(VideoData.resource_id == resource_id).one()
         video.llava_data = llava_data
+        session.commit()
+
+
+def set_recipe_data(resource_id: int, recipe_data: str):
+    """
+    Обновляет для видео с resource_id поле recipe_data.
+    """
+    with SessionLocal() as session:
+        video = session.query(VideoData).filter(VideoData.resource_id == resource_id).one()
+        video.recipe_data = recipe_data
         session.commit()

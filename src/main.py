@@ -25,6 +25,7 @@ IMPORT_ID = os.getenv("IMPORT_ID")
 # Параметры (можно задать через переменные окружения)
 MAX_VIDEO_DURATION_SEC = int(os.getenv("MAX_VIDEO_DURATION_SEC", 180))
 MAX_VIDEO_SIZE_MB      = int(os.getenv("MAX_VIDEO_SIZE_MB", 20))
+MAX_VIDEO_COUNT        = int(os.getenv("MAX_VIDEO_COUNT", 10))
 
 YOUTUBE_CHANNEL_URL = os.getenv("YOUTUBE_CHANNEL_URL")
 
@@ -126,7 +127,7 @@ def process_channel(import_id: int, channel_url: str):
 
     channel_name = match.group(1)
     channel_id = get_channel_id(channel_name)
-    videos = get_videos(channel_id, 50)
+    videos = get_videos(channel_id, MAX_VIDEO_COUNT)
     for video in videos:
         process_video(import_id, video, channel_id, channel_name)
 

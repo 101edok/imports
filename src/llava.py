@@ -24,7 +24,13 @@ INSTRUCTIONS_PROMPT = os.getenv("INSTRUCTIONS_PROMPT", "USER: <video>Provide a d
 
 # Загружаем модель и процессор Video LLaVA (убедитесь, что на GPU достаточно видеопамяти)
 model = VideoLlavaForConditionalGeneration.from_pretrained("LanguageBind/Video-LLaVA-7B-hf").to("cuda")
+model.half() # Переводим модель в half precision для экономии видеопамяти
+model.eval() # Переключаем модель в режим eval, т.к. мы используем её только для инференса
+
 processor = VideoLlavaProcessor.from_pretrained("LanguageBind/Video-LLaVA-7B-hf")
+# Устанавливаем параметры процессора, которые получили из cuda
+processor.patch_size = 14
+processor.vision_feature_select_strategy = "default"
 
 
 def read_video_pyav(container, indices):
@@ -65,7 +71,7 @@ def process_video_llava(video_path, prompt, model, processor):
     indices = np.arange(0, total_frames, total_frames / 8).astype(int)
     clip = read_video_pyav(container, indices)
     inputs = processor(text=prompt, videos=clip, return_tensors="pt").to("cuda")
-    generate_ids = model.generate(**inputs, max_length=1024, do_sample=True, temperature=0.7, top_p=0.9)
+    generate_ids = model.generate(**inputs, max_new_tokens=1024, do_sample=True, temperature=0.7, top_p=0.9)
     result = processor.batch_decode(generate_ids, skip_special_tokens=True, clean_up_tokenization_spaces=False)[0]
     return result
 
