@@ -20,6 +20,16 @@
 
 ## Запуск на `RunPod`
 
+Используем:
+* 1 x A40 (9 vCPU 50 GB RAM) - $0.44/hr
+* runpod/pytorch:1.13.0-py3.10-cuda11.7.1-devel-ubuntu22.04
+* 40 GB Disk (в процессе работы занимаем 59%)
+  Temporary disk space for the container
+* 20 GB Pod Volume
+  Persistent disk space mounted to the container
+  Volume Mount Path /workspace
+
+
 ```bash
 # Пеоед началом работы
 service nginx stop
