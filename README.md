@@ -2,6 +2,7 @@
 
 ## Переменные окружения
 
+* (required) S3_ACCESS_KEY
 * (required) S3_SECRET_KEY
 * (required) GOOGLE_API_KEY
 * (required) MYSQL_PASSWORD
